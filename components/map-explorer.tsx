@@ -1,3 +1,4 @@
+
 "use client";
 
 import Image from "next/image";
@@ -11,8 +12,11 @@ const places = [
 
 export function MapExplorer({ apiKey, mapId }: { apiKey: string; mapId: string }) {
   const mapRef = useRef<HTMLDivElement>(null);
+  const mapInstanceRef = useRef<google.maps.Map | null>(null);
+  const userMarkerRef = useRef<google.maps.marker.AdvancedMarkerElement | null>(null);
   const [selected, setSelected] = useState(places[0]);
   const [mapReady, setMapReady] = useState(false);
+  const [mapError, setMapError] = useState("");
   const [locationStatus, setLocationStatus] = useState("현재 위치");
 
   useEffect(() => {
@@ -22,37 +26,50 @@ export function MapExplorer({ apiKey, mapId }: { apiKey: string; mapId: string }
     const callbackName = `initTravelMap_${Date.now()}`;
 
     const initialize = async () => {
-      if (disposed || !mapRef.current || !window.google?.maps) return;
-      const { Map } = await google.maps.importLibrary("maps") as google.maps.MapsLibrary;
-      const { AdvancedMarkerElement } = await google.maps.importLibrary("marker") as google.maps.MarkerLibrary;
-      if (disposed || !mapRef.current) return;
+      try {
+        if (disposed || !mapRef.current || !window.google?.maps) return;
+        const { Map } = await google.maps.importLibrary("maps") as google.maps.MapsLibrary;
+        const { AdvancedMarkerElement } = await google.maps.importLibrary("marker") as google.maps.MarkerLibrary;
+        if (disposed || !mapRef.current) return;
 
-      const map = new Map(mapRef.current, {
-        center: { lat: 37.541, lng: 127.047 },
-        zoom: 14,
-        mapId,
-        disableDefaultUI: true,
-        gestureHandling: "greedy",
-      });
+        const map = new Map(mapRef.current, {
+          center: { lat: 37.541, lng: 127.047 },
+          zoom: 14,
+          mapId,
+          disableDefaultUI: true,
+          zoomControl: true,
+          gestureHandling: "greedy",
+          clickableIcons: false,
+        });
+        mapInstanceRef.current = map;
 
-      places.forEach((place) => {
-        const marker = document.createElement("button");
-        marker.className = "business-marker";
-        marker.type = "button";
-        marker.textContent = place.image;
-        marker.setAttribute("aria-label", place.name);
-        marker.addEventListener("click", () => setSelected(place));
-        new AdvancedMarkerElement({ map, position: place.position, content: marker, title: place.name });
-      });
+        places.forEach((place) => {
+          const marker = document.createElement("button");
+          marker.className = "business-marker";
+          marker.type = "button";
+          marker.textContent = place.image;
+          marker.setAttribute("aria-label", place.name);
+          marker.addEventListener("click", () => setSelected(place));
+          new AdvancedMarkerElement({ map, position: place.position, content: marker, title: place.name });
+        });
 
-      const me = document.createElement("div");
-      me.className = "bear-map-marker";
-      const image = document.createElement("img");
-      image.src = "/bear-marker.svg";
-      image.alt = "내 위치";
-      me.appendChild(image);
-      new AdvancedMarkerElement({ map, position: { lat: 37.5399, lng: 127.0501 }, content: me, title: "내 위치" });
-      setMapReady(true);
+        const me = document.createElement("div");
+        me.className = "bear-map-marker";
+        const image = document.createElement("img");
+        image.src = "/bear-marker.svg";
+        image.alt = "내 위치";
+        me.appendChild(image);
+        userMarkerRef.current = new AdvancedMarkerElement({
+          map,
+          position: { lat: 37.5399, lng: 127.0501 },
+          content: me,
+          title: "내 위치",
+        });
+        setMapError("");
+        setMapReady(true);
+      } catch {
+        setMapError("지도를 불러오지 못했어요. 잠시 후 다시 시도해 주세요.");
+      }
     };
 
     if (window.google?.maps) {
@@ -62,12 +79,17 @@ export function MapExplorer({ apiKey, mapId }: { apiKey: string; mapId: string }
       const script = document.createElement("script");
       script.src = `https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(apiKey)}&v=weekly&loading=async&callback=${callbackName}`;
       script.async = true;
-      script.onerror = () => setMapReady(false);
+      script.onerror = () => {
+        setMapReady(false);
+        setMapError("지도 연결을 확인하고 있어요.");
+      };
       document.head.appendChild(script);
     }
 
     return () => {
       disposed = true;
+      mapInstanceRef.current = null;
+      userMarkerRef.current = null;
       delete (window as unknown as Record<string, unknown>)[callbackName];
     };
   }, [apiKey, mapId]);
@@ -79,7 +101,15 @@ export function MapExplorer({ apiKey, mapId }: { apiKey: string; mapId: string }
     }
     setLocationStatus("찾는 중...");
     navigator.geolocation.getCurrentPosition(
-      () => setLocationStatus("내 위치 확인됨"),
+      ({ coords }) => {
+        const position = { lat: coords.latitude, lng: coords.longitude };
+        if (userMarkerRef.current) userMarkerRef.current.position = position;
+        if (mapInstanceRef.current) {
+          mapInstanceRef.current.panTo(position);
+          if ((mapInstanceRef.current.getZoom() ?? 0) < 16) mapInstanceRef.current.setZoom(16);
+        }
+        setLocationStatus("내 위치 확인됨");
+      },
       () => setLocationStatus("위치 권한 확인"),
       { enableHighAccuracy: true, timeout: 8000, maximumAge: 30000 },
     );
@@ -89,6 +119,7 @@ export function MapExplorer({ apiKey, mapId }: { apiKey: string; mapId: string }
     <section className="map-stage">
       <div className="map-canvas" ref={mapRef} aria-label="여행 장소 지도" />
       {!mapReady ? <MapFallback /> : null}
+      {mapError ? <div className="map-status" role="status">{mapError}</div> : null}
       <div className="map-toolbar">
         <label className="search-box">
           <span>⌕</span>
@@ -133,3 +164,4 @@ function MapFallback() {
     </div>
   );
 }
+
