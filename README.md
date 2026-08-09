@@ -1,23 +1,24 @@
 # Travel X Adventure
 
-Bubble?먯꽌 ?댁쁺?섎뜕 Travel X Adventure瑜?肄붾뱶 湲곕컲 ?뱀빋?쇰줈 ?댁쟾?섍린 ?꾪븳 Next.js ?꾨줈?앺듃?낅땲?? 湲곗〈 Bubble 蹂듭젣蹂몄? 蹂꾨룄濡?蹂댁〈?⑸땲??
+Bubble에서 운영하던 Travel X Adventure를 코드 기반 웹앱으로 이전하기 위한 Next.js 프로젝트입니다. 기존 Bubble 복제본은 별도로 보존됩니다.
 
-## ?ㅽ뻾
+## 실행
 
 ```bash
 pnpm install
 pnpm dev
 ```
 
-`.env.example`??李멸퀬??`.env.local`??留뚮뱶?몄슂.
+`.env.example`을 참고해 `.env.local`을 만드세요.
 
-## 移댁뭅??濡쒓렇???ㅼ젙
+## 카카오 로그인 설정
 
-1. Kakao Developers?먯꽌 REST API ?ㅼ? Kakao Login Client Secret??諛쒓툒?섍퀬 移댁뭅??濡쒓렇?몄쓣 ?쒖꽦?뷀빀?덈떎.
-2. Kakao Redirect URI??`https://<project-ref>.supabase.co/auth/v1/callback`???깅줉?⑸땲??
-3. Supabase Authentication > Providers > Kakao????媛믪쓣 ?낅젰?⑸땲??
-4. Supabase URL Configuration??Site URL???댁쁺 ?꾨찓?몄쑝濡? Redirect URLs??`https://<?댁쁺?꾨찓??/auth/callback`??異붽??⑸땲??
-5. Vercel??`NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, `NEXT_PUBLIC_SITE_URL`???ㅼ젙?⑸땲??
+1. Kakao Developers에서 REST API 키와 Kakao Login Client Secret을 발급하고 카카오 로그인을 활성화합니다.
+2. Kakao Redirect URI에 `https://<project-ref>.supabase.co/auth/v1/callback`을 등록합니다.
+3. Supabase Authentication > Providers > Kakao에 두 값을 입력합니다.
+4. Supabase URL Configuration의 Site URL을 운영 도메인으로, Redirect URLs에 `https://<운영도메인>/auth/callback`을 추가합니다.
+5. Vercel에 `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, `NEXT_PUBLIC_SITE_URL`을 설정합니다.
 
-## 吏??
-Google Maps JavaScript API ?ㅻ? `NEXT_PUBLIC_GOOGLE_MAPS_API_KEY`濡??ㅼ젙?섎㈃ 吏??ID `cb84b791b5f1952893200338`???ㅽ??쇱씠 ?곸슜?⑸땲?? ?ㅺ? ?놁쑝硫??붿옄??誘몃━蹂닿린媛 ?쒖떆?⑸땲??
+## 지도
+
+Google Maps JavaScript API 키를 `NEXT_PUBLIC_GOOGLE_MAPS_API_KEY`로 설정하면 지도 ID `cb84b791b5f1952893200338`의 스타일이 적용됩니다. 키가 없으면 디자인 미리보기가 표시됩니다.

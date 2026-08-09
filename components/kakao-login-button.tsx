@@ -10,7 +10,7 @@ export function KakaoLoginButton({ configured, compact = false }: { configured: 
 
   async function signInWithKakao() {
     if (!configured) {
-      setMessage("諛고룷 ?섍꼍??Supabase ???ㅼ젙???꾩슂?⑸땲??");
+      setMessage("배포 환경의 Supabase 키 설정이 필요합니다.");
       return;
     }
 
@@ -26,7 +26,7 @@ export function KakaoLoginButton({ configured, compact = false }: { configured: 
     });
 
     if (error) {
-      setMessage("移댁뭅??濡쒓렇?몄쓣 ?쒖옉?섏? 紐삵뻽?듬땲?? ?좎떆 ???ㅼ떆 ?쒕룄?댁＜?몄슂.");
+      setMessage("카카오 로그인을 시작하지 못했습니다. 잠시 후 다시 시도해주세요.");
       setLoading(false);
     }
   }
@@ -34,8 +34,8 @@ export function KakaoLoginButton({ configured, compact = false }: { configured: 
   return (
     <div className={compact ? "login-wrap compact" : "login-wrap"}>
       <button className="kakao-button" type="button" onClick={signInWithKakao} disabled={loading}>
-        <span aria-hidden="true">??/span>
-        {loading ? "移댁뭅?ㅻ줈 ?대룞 以?.." : compact ? "濡쒓렇?? : "移댁뭅?ㅻ줈 3珥?留뚯뿉 ?쒖옉?섍린"}
+        <span aria-hidden="true">●</span>
+        {loading ? "카카오로 이동 중..." : compact ? "로그인" : "카카오로 3초 만에 시작하기"}
       </button>
       {message ? <p className="login-message" role="status">{message}</p> : null}
     </div>

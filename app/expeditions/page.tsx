@@ -4,25 +4,25 @@ import { ExpeditionCard } from "@/components/expedition-card";
 
 const expeditions = [
   {
-    eyebrow: "?대쾲 二쇰쭚 쨌 遺??,
-    title: "?곷룄 ?댁븞?좎쓣 ?곕씪 嫄룸뒗 釉붾（ ?몃젅??,
-    detail: "6紐?以?4紐?李몄뿬 쨌 8.4km",
+    eyebrow: "이번 주말 · 부산",
+    title: "영도 해안선을 따라 걷는 블루 트레일",
+    detail: "6명 중 4명 참여 · 8.4km",
     tone: "ocean",
-    emoji: "?뙄",
+    emoji: "🌊",
   },
   {
-    eyebrow: "8??16??쨌 ?쒖＜",
-    title: "蹂꾨튆 ?꾨옒 ?ㅻ쫫???ㅻⅤ??諛??먯젙?",
-    detail: "8紐?以?5紐?李몄뿬 쨌 珥덈낫 ?섏쁺",
+    eyebrow: "8월 16일 · 제주",
+    title: "별빛 아래 오름을 오르는 밤 원정대",
+    detail: "8명 중 5명 참여 · 초보 환영",
     tone: "night",
-    emoji: "?뙔",
+    emoji: "🌙",
   },
   {
-    eyebrow: "?곸떆 紐⑥쭛 쨌 ?쒖슱",
-    title: "?쒓컯???⑥? ?몄쓣 ?ъ씤???섏쭛?섍린",
-    detail: "12紐?以?9紐?李몄뿬 쨌 ?ъ쭊 ?곗콉",
+    eyebrow: "상시 모집 · 서울",
+    title: "한강의 숨은 노을 포인트 수집하기",
+    detail: "12명 중 9명 참여 · 사진 산책",
     tone: "sunset",
-    emoji: "?뙁",
+    emoji: "🌇",
   },
 ];
 
@@ -32,20 +32,20 @@ export default function ExpeditionsPage() {
       <AppHeader />
       <section className="page-hero">
         <span className="eyebrow">TRAVEL TOGETHER</span>
-        <h1>媛숈씠 媛硫???硫由?<br />?덈줈???먯젙?瑜?留뚮굹蹂댁꽭??</h1>
-        <p>愿?ъ궗? ?쇱젙??留욌뒗 ?ы뻾?먮? 諛쒓껄?섍퀬 ?덉쟾?섍쾶 ?⑸쪟?섏꽭??</p>
+        <h1>같이 가면 더 멀리,<br />새로운 원정대를 만나보세요.</h1>
+        <p>관심사와 일정이 맞는 여행자를 발견하고 안전하게 합류하세요.</p>
         <div className="hero-actions">
-          <button className="primary-button" type="button">?먯젙? 留뚮뱾湲?/button>
-          <button className="secondary-button" type="button">??二쇰? 蹂닿린</button>
+          <button className="primary-button" type="button">원정대 만들기</button>
+          <button className="secondary-button" type="button">내 주변 보기</button>
         </div>
       </section>
       <section className="content-section">
         <div className="section-heading">
           <div>
             <span className="eyebrow">CURATED FOR YOU</span>
-            <h2>吏湲??좊굹湲?醫뗭? ?먯젙?</h2>
+            <h2>지금 떠나기 좋은 원정대</h2>
           </div>
-          <button className="text-button" type="button">?꾩껜 蹂닿린</button>
+          <button className="text-button" type="button">전체 보기</button>
         </div>
         <div className="card-grid">
           {expeditions.map((expedition) => (

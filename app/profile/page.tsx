@@ -10,13 +10,13 @@ export default function ProfilePage() {
       <AppHeader />
       <section className="profile-panel">
         <div className="profile-character">
-          <Image src="/bear-marker.svg" alt="Travel X 怨곕룎???먰뿕媛" width={160} height={160} priority />
+          <Image src="/bear-marker.svg" alt="Travel X 곰돌이 탐험가" width={160} height={160} priority />
         </div>
         <span className="eyebrow">YOUR NEXT ADVENTURE</span>
-        <h1>?섎쭔???ы뻾 吏?꾨?<br />?꾩꽦?대낫?몄슂.</h1>
-        <p>移댁뭅?ㅻ줈 ?쒖옉?섎㈃ ??ν븳 ?μ냼? 梨뚮┛吏 湲곕줉???대뒓 湲곌린?먯꽌???댁뼱蹂????덉뼱??</p>
+        <h1>나만의 여행 지도를<br />완성해보세요.</h1>
+        <p>카카오로 시작하면 저장한 장소와 챌린지 기록을 어느 기기에서든 이어볼 수 있어요.</p>
         <KakaoLoginButton configured={isSupabaseConfigured} />
-        <small>媛?낇븯硫??쒕퉬???댁슜?쎄? 諛?媛쒖씤?뺣낫 泥섎━諛⑹묠???숈쓽?섍쾶 ?⑸땲??</small>
+        <small>가입하면 서비스 이용약관 및 개인정보 처리방침에 동의하게 됩니다.</small>
       </section>
       <BottomNav active="profile" />
     </main>

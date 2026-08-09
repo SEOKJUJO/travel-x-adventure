@@ -6,7 +6,7 @@ export const metadata: Metadata = {
     default: "Travel X Adventure",
     template: "%s | Travel X Adventure",
   },
-  description: "吏?꾩뿉??諛쒓껄?섍퀬, ?④퍡 ?먯젙???좊굹???덈줈???ы뻾 而ㅻ??덊떚",
+  description: "지도에서 발견하고, 함께 원정을 떠나는 새로운 여행 커뮤니티",
 };
 
 export const viewport: Viewport = {
