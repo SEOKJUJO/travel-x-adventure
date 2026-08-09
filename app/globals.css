@@ -164,7 +164,7 @@ a { color: inherit; text-decoration: none; }
 .profile-panel > small { display: block; max-width: 400px; margin: 14px auto 0; color: #8992a2; font-size: 10px; line-height: 1.5; }
 .login-wrap { width: 100%; }
 .login-wrap.compact { width: auto; }
-.kakao-button { width: 100%; min-height: 54px; border: 0; border-radius: 15px; background: #fee500; color: #191600; font-size: 14px; font-weight: 800; cursor: pointer; box-shadow: 0 10px 24px rgba(94,84,0,.13); }
+.kakao-button { width: 100%; min-height: 54px; display: flex; align-items: center; justify-content: center; border: 0; border-radius: 15px; background: #fee500; color: #191600; font-size: 14px; font-weight: 800; cursor: pointer; box-shadow: 0 10px 24px rgba(94,84,0,.13); }
 .kakao-button span { margin-right: 8px; font-size: 13px; }
 .compact .kakao-button { width: auto; min-height: 38px; padding: 0 14px; border-radius: 12px; box-shadow: none; font-size: 11px; }
 .kakao-button:disabled { opacity: .6; cursor: wait; }
